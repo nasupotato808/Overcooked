@@ -30,6 +30,10 @@ class ToDoList:
         return self.tasks.pop(idx)
 
 @dataclass
-class Task:
+class ToDoItem:
     description: str
     complete: bool = False
+
+@dataclass
+class Task(ToDoItem):
+    steps: ToDoList = ToDoList()
