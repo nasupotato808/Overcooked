@@ -30,9 +30,8 @@ class ToDoList:
         return self.tasks.pop(idx)
 
 @dataclass
-class ToDoItem:
-    description: str
-    complete: bool = False
+class Step(ToDoItem):
+    pass
 
 @dataclass
 class Task(ToDoItem):
