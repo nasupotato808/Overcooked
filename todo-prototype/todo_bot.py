@@ -35,7 +35,7 @@ async def task_id_command(ctx: SlashContext, operation, i: int, *args):
     """
     try:
         if i >= 1:
-            await operation(i, *args)
+            await operation(ctx, i, *args)
         else:
             raise ValueError(VALUE_ERROR_POSITIVE_TASK_ID)
         
@@ -44,6 +44,10 @@ async def task_id_command(ctx: SlashContext, operation, i: int, *args):
 
     except IndexError:
         await ctx.send(MSG_INDEX_ERR)
+
+async def operation_show(ctx: SlashContext, i: int):
+    t = master.tasks[i-1]
+    await ctx.send(str(t))
 
 #endregion
 
@@ -69,14 +73,21 @@ async def show(ctx: SlashContext, todo_id: int = 0):
             await ctx.send(str(master))
 
     else:
-        async def operation_show(i):
-            t = master.tasks[i-1]
-            await ctx.send(str(t))
         await task_id_command(ctx, operation_show, todo_id)
 
 #endregion
 
-# base_task = SlashCommand(name=CMD_NAME_TASK, description=CMD_DESC_TASK)
+#region /todo
+
+base_task = SlashCommand(name=CMD_NAME_TASK, description=CMD_DESC_TASK)
+
+#endregion
+
+#region /step
+
+base_step = SlashCommand()
+
+#endregion
 
 # @base_task.subcommand(
 #     sub_cmd_name=CMD_NAME_TASK_ADD,
