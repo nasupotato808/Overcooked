@@ -46,13 +46,36 @@ async def task_id_command(ctx: SlashContext, operation, i: int, *args):
         await ctx.send(MSG_INDEX_ERR)
 
 #endregion
+
+#region /show
+
+@slash_command(
+    name=CMD_NAME_SHOW,
+    description=CMD_DESC_SHOW
 )
 @slash_option(
-    name=OPT_NAME_ID,
-    description=OPT_DESC_ID,
-    required=True,
+    name=OPT_NAME_TODO_ID,
+    description=OPT_DESC_TODO_ID,
+    required=False,
     opt_type=OptionType.INTEGER
 )
+async def show(ctx: SlashContext, todo_id: int = 0):
+
+    # To-do item not specified so display entire list.
+    if todo_id == 0:
+        if master.is_empty():
+            await ctx.send(MSG_SHOW_EMPTY)
+        else:
+            await ctx.send(str(master))
+
+    else:
+        async def operation_show(i):
+            t = master.tasks[i-1]
+            await ctx.send(str(t))
+        await task_id_command(ctx, operation_show, todo_id)
+
+#endregion
+
 # base_task = SlashCommand(name=CMD_NAME_TASK, description=CMD_DESC_TASK)
 
 # @base_task.subcommand(
