@@ -1,15 +1,32 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
-class ToDoList:
+@dataclass
+class TodoItem:
+    description: str
+    complete: bool = False
 
-    def __init__(self):
-        self.tasks = []
+    def __str__(self) -> str:
+        c = "☑️" if self.complete else "⬜"
+        return f"{c} {self.description}\n"
+
+@dataclass
+class TodoList():
+
+    tasks: list[TodoItem] = field(default_factory=list)
 
     def is_empty(self):
         return len(self.tasks) == 0
     
-    def add(self, task):
-        self.tasks.append()
+    def __str__(self) -> str:
+        tasks_str: list[str] = []
+        for i in range(len(self.tasks)):
+            t = self.tasks[i]
+            indent = "  " if isinstance(t, Step) else ""
+            tasks_str.append(f"{indent}{i+1}. {t}")
+        return "".join(tasks_str)
+
+    def add(self, task: TodoItem):
+        self.tasks.append(task)
 
     def check(self, idx: int):
         self.tasks[idx].complete = not self.tasks[idx].complete
@@ -30,9 +47,12 @@ class ToDoList:
         return self.tasks.pop(idx)
 
 @dataclass
-class Step(ToDoItem):
+class Step(TodoItem):
     pass
 
 @dataclass
-class Task(ToDoItem):
-    steps: ToDoList = ToDoList()
+class Task(TodoItem):
+    steps: TodoList = field(default_factory=TodoList)
+    
+    def __str__(self):
+        return f"{super().__str__()}{self.steps}\n"
