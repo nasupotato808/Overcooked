@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 @dataclass
-class TodoItem:
+class Task:
     description: str
     complete: bool = False
 
@@ -10,9 +10,9 @@ class TodoItem:
         return f"{c} {self.description}\n"
 
 @dataclass
-class TodoList():
+class TaskList():
 
-    tasks: list[TodoItem] = field(default_factory=list)
+    tasks: list[Task] = field(default_factory=list)
 
     def is_empty(self):
         return len(self.tasks) == 0
@@ -25,7 +25,7 @@ class TodoList():
             tasks_str.append(f"{indent}{i+1}. {t}")
         return "".join(tasks_str)
 
-    def add(self, task: TodoItem):
+    def add(self, task: Task):
         self.tasks.append(task)
 
     def check(self, idx: int):
@@ -47,12 +47,12 @@ class TodoList():
         return self.tasks.pop(idx)
 
 @dataclass
-class Step(TodoItem):
+class Step(Task):
     pass
 
 @dataclass
-class Task(TodoItem):
-    steps: TodoList = field(default_factory=TodoList)
+class Todo(Task):
+    steps: TaskList = field(default_factory=TaskList)
     
     def __str__(self):
         return f"{super().__str__()}{self.steps}\n"
