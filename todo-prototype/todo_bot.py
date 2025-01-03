@@ -83,19 +83,25 @@ OptionTodoIDOptional = SlashCommandOption(
     type=OptionType.INTEGER
 )
 #endregion
+
+#region /show
+@slash_command(
+    name=CMD_NAME_SHOW,
+    description=CMD_DESC_SHOW,
+    options=[OptionTodoIDOptional]
 )
 async def show(ctx: SlashContext, todo_id: int = 0):
-
-    # To-do item not specified so display entire list.
+    if master.is_empty():
+        await ctx.send(MSG_SHOW_EMPTY)
+        return
+    
     if todo_id == 0:
-        if master.is_empty():
-            await ctx.send(MSG_SHOW_EMPTY)
-        else:
-            await ctx.send(str(master))
+        await ctx.send(f"```{str(master)}```")
 
     else:
-        await task_id_command(ctx, operation_show, todo_id)
-
+        todo = await get_task(master, todo_id, ctx)
+        if todo is not None:
+            await ctx.send(f"```{str(todo)}```")
 #endregion
 
 #region /todo
