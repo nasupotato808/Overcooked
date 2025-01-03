@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from strings import INDENT
+from .strings import INDENT
 
 @dataclass
 class Task:
