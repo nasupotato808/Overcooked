@@ -46,6 +46,9 @@ MSG_ADD_STEP = lambda desc, todo_desc: f"\"{desc}\"added to \"{todo_desc}\". Hap
 
 MSG_CHECK_ON = "complete. Good job!"
 MSG_CHECK_OFF = "incomplete. Good luck!"
+MSG_CHECK_TODO = lambda complete, desc: f"\"{desc}\" {MSG_CHECK_ON if complete else MSG_CHECK_OFF}"
+MSG_CHECK_STEP = lambda complete, step_desc, todo_desc: f"\"{step_desc}\" under {todo_desc} {MSG_CHECK_ON if complete else MSG_CHECK_OFF}"
+
 MSG_EDIT = "is now"
 MSG_DELETE = "has been deleted."
 MSG_VALUE_ERR = lambda n: f"Sorry! I can't do anything with that task ID. Please select a task between 1 and {n}."
