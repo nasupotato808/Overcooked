@@ -15,8 +15,10 @@ CMD_DESC_ADD = "Add a new todo or step item."
 CMD_DESC_ADD_TODO = "Add a new todo item to the master list."
 CMD_DESC_ADD_STEP = "Add a new step item under an existing todo item."
 
-CMD_NAME_TASK_CHECK = "check"
-CMD_DESC_TASK_CHECK = "Toggle task completion status."
+CMD_NAME_CHECK = "check"
+CMD_DESC_CHECK = "Toggle completion status of a todo or step item."
+CMD_DESC_CHECK_TODO = "Toggle completion status of a todo item."
+CMD_DESC_CHECK_STEP = "Toggle completion status of a step item under a particular todo item."
 
 CMD_NAME_TASK_EDIT = "edit"
 CMD_DESC_TASK_EDIT = "Edit task description."
