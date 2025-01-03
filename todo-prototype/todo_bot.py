@@ -24,6 +24,14 @@ async def on_startup():
     channel = client.get_channel(CHANNEL_ID)
     await channel.send("Todooey is raring to go!")
 
+master.add(Todo("do laundry"))
+master.add(Todo("do the dishes"))
+master.add(Todo("pay bills"))
+master.get_task(0).steps.add(Step("sort lights and darks"))
+master.get_task(0).steps.add(Step("load laundry into washing machine"))
+master.get_task(0).steps.add(Step("hang delicates out to dry"))
+master.get_task(0).steps.add(Step("load remaining laundry into dryer"))
+master.get_task(0).steps.add(Step("fold clothes and stow in closet"))
 #endregion
 
 #region utility
