@@ -25,8 +25,10 @@ CMD_DESC_EDIT = "Edit description of a todo or step item."
 CMD_DESC_EDIT_TODO = "Edit description of a todo item."
 CMD_DESC_EDIT_STEP = "Edit description of a step item under a particular todo item."
 
-CMD_NAME_TASK_DELETE = "delete"
-CMD_DESC_TASK_DELETE = "Delete task."
+CMD_NAME_DELETE = "delete"
+CMD_DESC_DELETE = "Delete a todo or stem item."
+CMD_DESC_DELETE_TODO = "Delete a todo item from the master list."
+CMD_DESC_DELETE_STEP = "Delete a step item from under a particular todo item."
 
 # Names and descriptions of bot command options.
 
@@ -44,7 +46,7 @@ OPT_DESC_DESC = "Task description."
 MSG_SHOW_EMPTY = "Nothing to see here. Maybe add a task or two!"
 
 MSG_ADD_TODO = lambda desc: f"\"{desc}\" added to the list. Happy tasking!"
-MSG_ADD_STEP = lambda desc, todo_desc: f"\"{desc}\"added to \"{todo_desc}\". Happy tasking!"
+MSG_ADD_STEP = lambda desc, todo_desc: f"\"{desc}\" added to \"{todo_desc}\". Happy tasking!"
 
 MSG_CHECK_ON = "complete. Good job!"
 MSG_CHECK_OFF = "incomplete. Good luck!"
@@ -54,6 +56,8 @@ MSG_CHECK_STEP = lambda complete, step_desc, todo_desc: f"\"{step_desc}\" under 
 MSG_EDIT_TODO = lambda old_desc, new_desc: f"\"{old_desc}\" is now \"{new_desc}\"."
 MSG_EDIT_STEP = lambda old_desc, new_desc, todo_desc: f"\"{old_desc}\" under \"{todo_desc}\" is now \"{new_desc}\"."
 
-MSG_DELETE = "has been deleted."
+MSG_DELETE_TODO = lambda desc: f"\"{desc}\" has been deleted from the master list."
+MSG_DELETE_STEP = lambda step_desc, todo_desc: f"\"{step_desc}\" has been deleted from under \"{todo_desc}\"."
+
 MSG_VALUE_ERR = lambda n: f"Sorry! I can't do anything with that task ID. Please select a task between 1 and {n}."
 MSG_INDEX_ERR = lambda i: f"Task {i} doesn't exist. Sorry!"
