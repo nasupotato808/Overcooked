@@ -1,5 +1,6 @@
 ACTIVITY_NAME = "over the task goblins"
-VALUE_ERROR_POSITIVE_TASK_ID = "Task ID must be strictly positive."
+ERROR_POSITIVE_TASK_ID = "Task ID must be strictly positive."
+INDENT = "    "
 
 # Names and descriptions of bot commands.
 
