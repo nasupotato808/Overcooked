@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from .strings import INDENT
+from .strings import INDENT, NUMBERING, CHECKBOX
 
 @dataclass
 class Task:
@@ -7,8 +7,7 @@ class Task:
     complete: bool = False
 
     def __str__(self) -> str:
-        c = "✅" if self.complete else "⬜"
-        return f"{c} {self.description}\n"
+        return f"{CHECKBOX(self.complete)} {self.description}\n"
     
     def check(self) -> bool:
         self.complete = not self.complete
@@ -35,7 +34,7 @@ class TaskList():
         for i in range(len(self.tasks)):
             t = self.tasks[i]
             indent = INDENT if isinstance(t, Step) else ""
-            tasks_str.append(f"{indent}{i+1}. {t}")
+            tasks_str.append(f"{indent}{NUMBERING(i+1)} {t}")
         return "".join(tasks_str)
     
     def get_task(self, idx: int) -> Task:
@@ -56,4 +55,4 @@ class Todo(Task):
     steps: TaskList = field(default_factory=TaskList)
     
     def __str__(self) -> str:
-        return f"{super().__str__()}{self.steps}\n"
+        return f"{super().__str__()}{self.steps}"
