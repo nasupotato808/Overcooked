@@ -130,6 +130,37 @@ async def add_step(ctx: SlashContext, todo_id: int, description: str):
         await ctx.send(MSG_ADD_STEP(description, todo.description))
 #endregion
 
+#region /check
+base_check = SlashCommand(
+    name=CMD_NAME_CHECK,
+    description=CMD_DESC_CHECK
+)
+
+@base_check.subcommand(
+    sub_cmd_name=CMD_SUB_NAME_TODO,
+    sub_cmd_description=CMD_DESC_CHECK_TODO,
+    options=[OptionTodoID]
+)
+async def check_todo(ctx: SlashContext, todo_id: int):
+    todo = await get_task(master, todo_id, ctx)
+    if todo is not None:
+        complete = todo.check()
+        await ctx.send(MSG_CHECK_TODO(complete, todo.description))
+
+@base_check.subcommand(
+    sub_cmd_name=CMD_SUB_NAME_STEP,
+    sub_cmd_description=CMD_DESC_CHECK_STEP,
+    options=[OptionTodoID, OptionStepID]
+)
+async def check_step(ctx: SlashContext, todo_id: int, step_id: int):
+    todo = await get_task(master, todo_id, ctx)
+    if todo is not None:
+        step = await get_task(todo.steps, step_id, ctx)
+        if step is not None:
+            complete = step.check()
+            await ctx.send(MSG_CHECK_STEP(complete, step.description, todo.description))
+#endregion
+
 # @base_task.subcommand(
 #     sub_cmd_name=CMD_NAME_TASK_CHECK,
 #     sub_cmd_description=CMD_DESC_TASK_CHECK
