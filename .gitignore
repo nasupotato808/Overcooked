@@ -2,3 +2,10 @@ todo-prototype/config.py
 todo-prototype/__pycache__/config.cpython-311.pyc
 todo-prototype/__pycache__/strings.cpython-311.pyc
 todo-prototype/__pycache__/task.cpython-311.pyc
+todo-prototype/utils/__pycache__/__init__.cpython-311.pyc
+todo-prototype/utils/__pycache__/operations.cpython-311.pyc
+todo-prototype/utils/__pycache__/strings.cpython-311.pyc
+todo-prototype/utils/__pycache__/task.cpython-311.pyc
+todo-prototype/commands/__pycache__/__init__.cpython-311.pyc
+todo-prototype/commands/__pycache__/commands.cpython-311.pyc
+todo-prototype/commands/__pycache__/options.cpython-311.pyc
