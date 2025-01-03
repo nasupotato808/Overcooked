@@ -10,3 +10,7 @@ todo-prototype/commands/__pycache__/__init__.cpython-311.pyc
 todo-prototype/commands/__pycache__/commands.cpython-311.pyc
 todo-prototype/commands/__pycache__/options.cpython-311.pyc
 todo-prototype/display/__pycache__/show_embed.cpython-311.pyc
+todo-prototype/ui_components/__pycache__/buttons.cpython-311.pyc
+todo-prototype/ui_components/__pycache__/show_embed.cpython-311.pyc
+todo-prototype/components/__pycache__/buttons.cpython-311.pyc
+todo-prototype/components/__pycache__/show_embed.cpython-311.pyc
