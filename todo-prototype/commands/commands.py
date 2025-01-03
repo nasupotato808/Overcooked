@@ -1,8 +1,9 @@
 from interactions import slash_command, SlashCommand, SlashContext
 from config import master
 from utils.task import Todo, Step
-from utils.operations import get_task, operation_show, operation_add, operation_check, operation_edit, operation_delete
+from utils.operations import get_task_safe, operation_add, operation_check, operation_edit, operation_delete
 from .options import *
+from display.show_embed import operation_show
 
 #region /show
 @slash_command(
@@ -14,7 +15,7 @@ async def show(ctx: SlashContext, todo_id: int = 0):
     if todo_id == 0:
         await operation_show(master, ctx)
     else:
-        todo = await get_task(master, todo_id, ctx)
+        todo = await get_task_safe(master, todo_id, ctx)
         if todo is not None:
             await operation_show(todo, ctx)
 #endregion
@@ -39,7 +40,7 @@ async def add_todo(ctx: SlashContext, description: str):
     options=[OptionTodoID, OptionDesc]
 )
 async def add_step(ctx: SlashContext, todo_id: int, description: str):
-    todo = await get_task(master, todo_id, ctx)
+    todo = await get_task_safe(master, todo_id, ctx)
     if todo is not None:
         await operation_add(todo.steps, Step(description), ctx, todo.description)
 #endregion
@@ -56,7 +57,7 @@ base_check = SlashCommand(
     options=[OptionTodoID]
 )
 async def check_todo(ctx: SlashContext, todo_id: int):
-    todo = await get_task(master, todo_id, ctx)
+    todo = await get_task_safe(master, todo_id, ctx)
     if todo is not None:
         await operation_check(todo, ctx)
 
@@ -66,9 +67,9 @@ async def check_todo(ctx: SlashContext, todo_id: int):
     options=[OptionTodoID, OptionStepID]
 )
 async def check_step(ctx: SlashContext, todo_id: int, step_id: int):
-    todo = await get_task(master, todo_id, ctx)
+    todo = await get_task_safe(master, todo_id, ctx)
     if todo is not None:
-        step = await get_task(todo.steps, step_id, ctx)
+        step = await get_task_safe(todo.steps, step_id, ctx)
         if step is not None:
             await operation_check(step, ctx, todo.description)
 #endregion
@@ -85,7 +86,7 @@ base_edit = SlashCommand(
     options=[OptionTodoID, OptionDesc]
 )
 async def edit_todo(ctx: SlashContext, todo_id: int, description: str):
-    todo = await get_task(master, todo_id, ctx)
+    todo = await get_task_safe(master, todo_id, ctx)
     if todo is not None:
         await operation_edit(todo, description, ctx)
 
@@ -95,9 +96,9 @@ async def edit_todo(ctx: SlashContext, todo_id: int, description: str):
     options=[OptionTodoID, OptionStepID, OptionDesc]
 )
 async def edit_step(ctx: SlashContext, todo_id: int, step_id: int, description: str):
-    todo = await get_task(master, todo_id, ctx)
+    todo = await get_task_safe(master, todo_id, ctx)
     if todo is not None:
-        step = await get_task(todo.steps, step_id, ctx)
+        step = await get_task_safe(todo.steps, step_id, ctx)
         if step is not None:
             await operation_edit(step, description, ctx, todo.description)
 #endregion
@@ -114,7 +115,7 @@ base_delete = SlashCommand(
     options=[OptionTodoID]
 )
 async def delete_todo(ctx: SlashContext, todo_id: int):
-    todo = await get_task(master, todo_id, ctx)
+    todo = await get_task_safe(master, todo_id, ctx)
     if todo is not None:
         await operation_delete(master, todo_id, ctx)
 
@@ -124,9 +125,9 @@ async def delete_todo(ctx: SlashContext, todo_id: int):
     options=[OptionTodoID, OptionStepID]
 )
 async def delete_step(ctx: SlashContext, todo_id: int, step_id: int):
-    todo = await get_task(master, todo_id, ctx)
+    todo = await get_task_safe(master, todo_id, ctx)
     if todo is not None:
-        step = await get_task(todo.steps, step_id, ctx)
+        step = await get_task_safe(todo.steps, step_id, ctx)
         if step is not None:
             await operation_delete(todo.steps, step_id, ctx, todo.description)
 #endregion
