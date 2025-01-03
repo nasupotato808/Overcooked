@@ -161,53 +161,36 @@ async def check_step(ctx: SlashContext, todo_id: int, step_id: int):
             await ctx.send(MSG_CHECK_STEP(complete, step.description, todo.description))
 #endregion
 
-# @base_task.subcommand(
-#     sub_cmd_name=CMD_NAME_TASK_CHECK,
-#     sub_cmd_description=CMD_DESC_TASK_CHECK
-# )
-# @slash_option(
-#     name=OPT_NAME_ID,
-#     description=OPT_DESC_ID,
-#     required=True,
-#     opt_type=OptionType.INTEGER
-# )
-# async def task_check(ctx: SlashContext, id: int):
+#region /edit
+base_edit = SlashCommand(
+    name=CMD_NAME_EDIT,
+    description=CMD_DESC_EDIT
+)
 
-#     async def operation_check(id):
-#         t = master.tasks[id-1]
-#         t.complete = not t.complete
-#         msg_complete = f"\"{t.description}\" {MSG_CHECK_ON}"
-#         msg_incomplete = f"\"{t.description}\" {MSG_CHECK_OFF}"
-#         await ctx.send(msg_complete if t.complete else msg_incomplete)
+@base_edit.subcommand(
+    sub_cmd_name=CMD_SUB_NAME_TODO,
+    sub_cmd_description=CMD_DESC_EDIT_TODO,
+    options=[OptionTodoID, OptionDesc]
+)
+async def edit_todo(ctx: SlashContext, todo_id: int, description: str):
+    todo = await get_task(master, todo_id, ctx)
+    if todo is not None:
+        old_desc = todo.edit(description)
+        await ctx.send(MSG_EDIT_TODO(old_desc, description))
 
-#     await task_id_command(ctx, operation_check, id)
-
-# @base_task.subcommand(
-#     sub_cmd_name=CMD_NAME_TASK_EDIT,
-#     sub_cmd_description=CMD_DESC_TASK_EDIT
-# )
-# @slash_option(
-#     name=OPT_NAME_ID,
-#     description=OPT_DESC_ID,
-#     required=True,
-#     opt_type=OptionType.INTEGER
-# )
-# @slash_option(
-#     name=OPT_NAME_DESC,
-#     description=OPT_DESC_DESC,
-#     required=True,
-#     opt_type=OptionType.STRING    
-# )
-# async def task_edit(ctx: SlashContext, id: int, description: str):
-    
-#     async def operation_edit(id, description):
-#         t = master.tasks[id-1]
-#         old_desc = t.description
-#         t.description = description
-#         msg = f"Task {id} \"{old_desc}\" {MSG_EDIT} \"{description}\"."
-#         await ctx.send(msg)
-
-#     await task_id_command(ctx, operation_edit, id, description)
+@base_edit.subcommand(
+    sub_cmd_name=CMD_SUB_NAME_STEP,
+    sub_cmd_description=CMD_DESC_EDIT_STEP,
+    options=[OptionTodoID, OptionStepID, OptionDesc]
+)
+async def edit_step(ctx: SlashContext, todo_id: int, step_id: int, description: str):
+    todo = await get_task(master, todo_id, ctx)
+    if todo is not None:
+        step = await get_task(todo.steps, step_id, ctx)
+        if step is not None:
+            old_desc = step.edit(description)
+            await ctx.send(MSG_EDIT_STEP(old_desc, description, todo.description))
+#endregion
 
 # @base_task.subcommand(
 #     sub_cmd_name=CMD_NAME_TASK_DELETE,
