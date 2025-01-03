@@ -192,23 +192,35 @@ async def edit_step(ctx: SlashContext, todo_id: int, step_id: int, description: 
             await ctx.send(MSG_EDIT_STEP(old_desc, description, todo.description))
 #endregion
 
-# @base_task.subcommand(
-#     sub_cmd_name=CMD_NAME_TASK_DELETE,
-#     sub_cmd_description=CMD_DESC_TASK_DELETE
-# )
-# @slash_option(
-#     name=OPT_NAME_ID,
-#     description=OPT_DESC_ID,
-#     required=True,
-#     opt_type=OptionType.INTEGER
-# )
-# async def task_delete(ctx: SlashContext, id: int):
+#region /delete
+base_delete = SlashCommand(
+    name=CMD_NAME_DELETE,
+    description=CMD_DESC_DELETE
+)
 
-#     async def operation_delete(id):
-#         t = master.tasks.pop(id-1)
-#         msg = f"Task {id} \"{t.description}\" {MSG_DELETE}"
-#         await ctx.send(msg)
+@base_delete.subcommand(
+    sub_cmd_name=CMD_SUB_NAME_TODO,
+    sub_cmd_description=CMD_DESC_DELETE_TODO,
+    options=[OptionTodoID]
+)
+async def delete_todo(ctx: SlashContext, todo_id: int):
+    todo = await get_task(master, todo_id, ctx)
+    if todo is not None:
+        desc = master.delete(todo_id-1).description
+        await ctx.send(MSG_DELETE_TODO(desc))
 
-#     await task_id_command(ctx, operation_delete, id)
+@base_delete.subcommand(
+    sub_cmd_name=CMD_SUB_NAME_STEP,
+    sub_cmd_description=CMD_DESC_DELETE_STEP,
+    options=[OptionTodoID, OptionStepID]
+)
+async def delete_step(ctx: SlashContext, todo_id: int, step_id: int):
+    todo = await get_task(master, todo_id, ctx)
+    if todo is not None:
+        step = await get_task(todo.steps, step_id, ctx)
+        if step is not None:
+            desc = todo.steps.delete(step_id-1).description
+            await ctx.send(MSG_DELETE_STEP(desc, todo.description))
+#endregion
 
 client.start()
