@@ -1,6 +1,18 @@
 ACTIVITY_NAME = "over the task goblins"
 ERROR_POSITIVE_TASK_ID = "Task ID must be strictly positive."
-INDENT = "    "
+
+# String rendering.
+INDENT = "      "
+NUMBERING = lambda i: f"{f'#{(i)}':>4}"
+WHITESPACE = "\u200b"
+CHECKBOX = lambda complete: "✅" if complete else "⬜"
+
+# Embed and button strings.
+
+EMBED_COLOR = 0x5fdcb6
+EMBED_TITLE_MASTER = lambda guild_name: f"{guild_name}'s To-do List"
+EMBED_DESC_MASTER = "There's much to be done!"
+EMBED_DESC_TODO = lambda complete: f"`Completion status: {CHECKBOX(complete)}`"
 
 # Names and descriptions of bot commands.
 
