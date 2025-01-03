@@ -1,11 +1,10 @@
 import interactions
-from interactions import slash_command, slash_option, SlashContext, OptionType, SlashCommand
+from interactions import SlashCommandOption, slash_command, SlashContext, OptionType, SlashCommand
 from config import BOT_TOKEN, SERVER_ID, CHANNEL_ID
-from task import TaskList, Todo, Step
+from task import Task, TaskList, Todo, Step
 from strings import *
 
 #region setup
-
 client = interactions.Client(
     token=BOT_TOKEN,
     activity=interactions.Activity(
@@ -104,31 +103,32 @@ async def show(ctx: SlashContext, todo_id: int = 0):
             await ctx.send(f"```{str(todo)}```")
 #endregion
 
-#region /todo
+#region /add
+base_add = SlashCommand(
+    name=CMD_NAME_ADD,
+    description=CMD_DESC_ADD
+)
 
-base_task = SlashCommand(name=CMD_NAME_TASK, description=CMD_DESC_TASK)
+@base_add.subcommand(
+    sub_cmd_name=CMD_SUB_NAME_TODO,
+    sub_cmd_description=CMD_DESC_ADD_TODO,
+    options=[OptionDesc]
+)
+async def add_todo(ctx: SlashContext, description: str):
+    master.add(Todo(description))
+    await ctx.send(MSG_ADD_TODO(description))
 
+@base_add.subcommand(
+    sub_cmd_name=CMD_SUB_NAME_STEP,
+    sub_cmd_description=CMD_DESC_ADD_STEP,
+    options=[OptionTodoID, OptionDesc]
+)
+async def add_step(ctx: SlashContext, todo_id: int, description: str):
+    todo = await get_task(master, todo_id, ctx)
+    if todo is not None:
+        todo.steps.add(Step(description))
+        await ctx.send(MSG_ADD_STEP(description, todo.description))
 #endregion
-
-#region /step
-
-base_step = SlashCommand()
-
-#endregion
-
-# @base_task.subcommand(
-#     sub_cmd_name=CMD_NAME_TASK_ADD,
-#     sub_cmd_description=CMD_DESC_TASK_ADD
-# )
-# @slash_option(
-#     name=OPT_NAME_DESC,
-#     description=OPT_DESC_DESC,
-#     required=True,
-#     opt_type=OptionType.STRING
-# )
-# async def task_add(ctx: SlashContext, description: str):
-#     master.tasks.append(Task(description))
-#     await ctx.send(f"\"{description}\" {MSG_ADD}")
 
 # @base_task.subcommand(
 #     sub_cmd_name=CMD_NAME_TASK_CHECK,
