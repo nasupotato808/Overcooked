@@ -35,28 +35,23 @@ master.get_task(0).steps.add(Step("fold clothes and stow in closet"))
 #endregion
 
 #region utility
-
-async def task_id_command(ctx: SlashContext, operation, i: int, *args):
+async def get_task(task_list: TaskList, i: int, ctx: SlashContext) -> Task:
     """
-    A reusable function to execute task commands with standardized
-    error-handling upon the task ID parameter.
+    A reusable function with error-handling for task-fetching commands.
     """
     try:
         if i >= 1:
-            await operation(ctx, i, *args)
+            return task_list.get_task(i-1)
         else:
-            raise ValueError(VALUE_ERROR_POSITIVE_TASK_ID)
-        
+            raise ValueError(ERROR_POSITIVE_TASK_ID)
+    
     except ValueError:
-        await ctx.send(MSG_VALUE_ERR)
+        await ctx.send(MSG_VALUE_ERR(len(task_list)))
 
     except IndexError:
-        await ctx.send(MSG_INDEX_ERR)
+        await ctx.send(MSG_INDEX_ERR(i))
 
-async def operation_show(ctx: SlashContext, i: int):
-    t = master.tasks[i-1]
-    await ctx.send(str(t))
-
+    return None
 #endregion
 
 #region /show
