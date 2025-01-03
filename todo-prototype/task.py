@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from strings import INDENT
 
 @dataclass
 class Task:
@@ -26,31 +27,22 @@ class TaskList():
     def is_empty(self):
         return len(self.tasks) == 0
     
+    def __len__(self) -> int:
+        return len(self.tasks)
+
     def __str__(self) -> str:
         tasks_str: list[str] = []
         for i in range(len(self.tasks)):
             t = self.tasks[i]
-            indent = "  " if isinstance(t, Step) else ""
+            indent = INDENT if isinstance(t, Step) else ""
             tasks_str.append(f"{indent}{i+1}. {t}")
         return "".join(tasks_str)
+    
+    def get_task(self, idx: int) -> Task:
+        return self.tasks[idx]
 
     def add(self, task: Task):
         self.tasks.append(task)
-
-    def check(self, idx: int):
-        self.tasks[idx].complete = not self.tasks[idx].complete
-        return self.tasks[idx].complete
-    
-    def edit(self, idx: int, new_desc: str):
-        old_desc = self.tasks[idx].description
-        self.tasks[idx].description = new_desc
-        return old_desc
-    
-    def get_description(self, idx):
-        return self.tasks[idx].description
-    
-    def swap(self, idxA, idxB):
-        self.tasks[idxA], self.tasks[idxB] = self.tasks[idxB], self.tasks[idxA]
     
     def delete(self, idx):
         return self.tasks.pop(idx)
