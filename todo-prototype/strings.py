@@ -4,14 +4,16 @@ INDENT = "    "
 
 # Names and descriptions of bot commands.
 
+CMD_SUB_NAME_TODO = "todo"
+CMD_SUB_NAME_STEP = "step"
+
 CMD_NAME_SHOW = "show"
-CMD_DESC_SHOW = "Display all your tasks or the details of a specific task."
+CMD_DESC_SHOW = "Display all tasks or the details of a specific todo item."
 
-CMD_NAME_TASK = "task"
-CMD_DESC_TASK = "Create, modify, or delete tasks."
-
-CMD_NAME_TASK_ADD = "add"
-CMD_DESC_TASK_ADD = "Create a new task."
+CMD_NAME_ADD = "add"
+CMD_DESC_ADD = "Add a new todo or step item."
+CMD_DESC_ADD_TODO = "Add a new todo item to the master list."
+CMD_DESC_ADD_STEP = "Add a new step item under an existing todo item."
 
 CMD_NAME_TASK_CHECK = "check"
 CMD_DESC_TASK_CHECK = "Toggle task completion status."
@@ -24,8 +26,11 @@ CMD_DESC_TASK_DELETE = "Delete task."
 
 # Names and descriptions of bot command options.
 
-OPT_NAME_TODO_ID = "todo-id"
+OPT_NAME_TODO_ID = "todo_id"
 OPT_DESC_TODO_ID = "To-do item number. You can verify this with \"\\show\"."
+
+OPT_NAME_STEP_ID = "step_id"
+OPT_DESC_STEP_ID = "Step item number under a specific todo item. You can verify this with \"\\show\"."
 
 OPT_NAME_DESC = "description"
 OPT_DESC_DESC = "Task description."
