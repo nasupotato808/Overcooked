@@ -1,6 +1,6 @@
 import interactions
 from interactions import SlashCommandOption, slash_command, SlashContext, OptionType, SlashCommand
-from config import BOT_TOKEN, SERVER_ID, CHANNEL_ID
+from config import BOT_TOKEN, SERVER_ID, CHANNEL_ID, master
 from task import Task, TaskList, Todo, Step
 from strings import *
 
@@ -13,8 +13,6 @@ client = interactions.Client(
     ),
     debug_scope=SERVER_ID
 )
-
-master = TaskList()
 
 @interactions.listen()
 async def on_startup():
