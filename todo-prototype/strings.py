@@ -38,7 +38,10 @@ OPT_DESC_DESC = "Task description."
 # Bot messages.
 
 MSG_SHOW_EMPTY = "Nothing to see here. Maybe add a task or two!"
-MSG_ADD = "added to the list. Happy tasking!"
+
+MSG_ADD_TODO = lambda desc: f"\"{desc}\" added to the list. Happy tasking!"
+MSG_ADD_STEP = lambda desc, todo_desc: f"\"{desc}\"added to \"{todo_desc}\". Happy tasking!"
+
 MSG_CHECK_ON = "complete. Good job!"
 MSG_CHECK_OFF = "incomplete. Good luck!"
 MSG_EDIT = "is now"
