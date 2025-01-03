@@ -54,17 +54,35 @@ async def get_task(task_list: TaskList, i: int, ctx: SlashContext) -> Task:
     return None
 #endregion
 
-#region /show
-
-@slash_command(
-    name=CMD_NAME_SHOW,
-    description=CMD_DESC_SHOW
+#region options
+OptionTodoID = SlashCommandOption(
+    name=OPT_NAME_TODO_ID,
+    description=OPT_DESC_TODO_ID,
+    required=True,
+    type=OptionType.INTEGER
 )
-@slash_option(
+
+OptionStepID = SlashCommandOption(
+    name=OPT_NAME_STEP_ID,
+    description=OPT_DESC_STEP_ID,
+    required=True,
+    type=OptionType.INTEGER
+)
+
+OptionDesc = SlashCommandOption(
+    name=OPT_NAME_DESC,
+    description=OPT_DESC_DESC,
+    required=True,
+    type=OptionType.STRING
+)
+
+OptionTodoIDOptional = SlashCommandOption(
     name=OPT_NAME_TODO_ID,
     description=OPT_DESC_TODO_ID,
     required=False,
-    opt_type=OptionType.INTEGER
+    type=OptionType.INTEGER
+)
+#endregion
 )
 async def show(ctx: SlashContext, todo_id: int = 0):
 
