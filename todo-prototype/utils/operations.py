@@ -6,7 +6,7 @@ from .task import Task, TaskList, Todo
 id_index    = lambda i: i-1     # Derive list index from displayed ID.
 id_display  = lambda i: i+1     # Derive displayed ID from list index.
 
-async def get_task(task_list: TaskList, i: int, ctx: SlashContext) -> Task:
+async def get_task_safe(task_list: TaskList, i: int, ctx: SlashContext) -> Task:
     """
     A reusable function with standardized error-handling when fetching Task
     objects from a given TaskList instance.
@@ -24,13 +24,6 @@ async def get_task(task_list: TaskList, i: int, ctx: SlashContext) -> Task:
         await ctx.send(MSG_INDEX_ERR(i))
 
     return None
-
-async def operation_show(target: Union[TaskList, Todo], ctx: SlashContext):
-    if isinstance(target, TaskList):
-        if target.is_empty():
-            await ctx.send(MSG_SHOW_EMPTY)
-            return
-    await ctx.send(f"```{str(target)}```")
     
 async def operation_add(target: TaskList, task: Task, ctx: SlashContext, parent_desc: str = ""):
     target.add(task)
