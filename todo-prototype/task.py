@@ -24,7 +24,7 @@ class TaskList():
 
     tasks: list[Task] = field(default_factory=list)
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return len(self.tasks) == 0
     
     def __len__(self) -> int:
@@ -41,10 +41,10 @@ class TaskList():
     def get_task(self, idx: int) -> Task:
         return self.tasks[idx]
 
-    def add(self, task: Task):
+    def add(self, task: Task) -> None:
         self.tasks.append(task)
     
-    def delete(self, idx):
+    def delete(self, idx) -> Task:
         return self.tasks.pop(idx)
 
 @dataclass
@@ -55,5 +55,5 @@ class Step(Task):
 class Todo(Task):
     steps: TaskList = field(default_factory=TaskList)
     
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{super().__str__()}{self.steps}\n"
