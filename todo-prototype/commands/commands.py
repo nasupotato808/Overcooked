@@ -3,7 +3,7 @@ from config import master
 from utils.task import Todo, Step
 from utils.operations import get_task_safe, operation_add, operation_check, operation_edit, operation_delete
 from .options import *
-from display.show_embed import operation_show
+from ui_components.show_embed import operation_show
 
 #region /show
 @slash_command(
