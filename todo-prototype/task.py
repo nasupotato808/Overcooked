@@ -8,6 +8,15 @@ class Task:
     def __str__(self) -> str:
         c = "☑️" if self.complete else "⬜"
         return f"{c} {self.description}\n"
+    
+    def check(self) -> bool:
+        self.complete = not self.complete
+        return self.complete
+    
+    def edit(self, new_desc) -> str:
+        old_desc = self.description
+        self.description = new_desc
+        return old_desc
 
 @dataclass
 class TaskList():
