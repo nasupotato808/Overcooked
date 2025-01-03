@@ -20,8 +20,10 @@ CMD_DESC_CHECK = "Toggle completion status of a todo or step item."
 CMD_DESC_CHECK_TODO = "Toggle completion status of a todo item."
 CMD_DESC_CHECK_STEP = "Toggle completion status of a step item under a particular todo item."
 
-CMD_NAME_TASK_EDIT = "edit"
-CMD_DESC_TASK_EDIT = "Edit task description."
+CMD_NAME_EDIT = "edit"
+CMD_DESC_EDIT = "Edit description of a todo or step item."
+CMD_DESC_EDIT_TODO = "Edit description of a todo item."
+CMD_DESC_EDIT_STEP = "Edit description of a step item under a particular todo item."
 
 CMD_NAME_TASK_DELETE = "delete"
 CMD_DESC_TASK_DELETE = "Delete task."
@@ -47,9 +49,11 @@ MSG_ADD_STEP = lambda desc, todo_desc: f"\"{desc}\"added to \"{todo_desc}\". Hap
 MSG_CHECK_ON = "complete. Good job!"
 MSG_CHECK_OFF = "incomplete. Good luck!"
 MSG_CHECK_TODO = lambda complete, desc: f"\"{desc}\" {MSG_CHECK_ON if complete else MSG_CHECK_OFF}"
-MSG_CHECK_STEP = lambda complete, step_desc, todo_desc: f"\"{step_desc}\" under {todo_desc} {MSG_CHECK_ON if complete else MSG_CHECK_OFF}"
+MSG_CHECK_STEP = lambda complete, step_desc, todo_desc: f"\"{step_desc}\" under \"{todo_desc}\" {MSG_CHECK_ON if complete else MSG_CHECK_OFF}"
 
-MSG_EDIT = "is now"
+MSG_EDIT_TODO = lambda old_desc, new_desc: f"\"{old_desc}\" is now \"{new_desc}\"."
+MSG_EDIT_STEP = lambda old_desc, new_desc, todo_desc: f"\"{old_desc}\" under \"{todo_desc}\" is now \"{new_desc}\"."
+
 MSG_DELETE = "has been deleted."
 MSG_VALUE_ERR = lambda n: f"Sorry! I can't do anything with that task ID. Please select a task between 1 and {n}."
 MSG_INDEX_ERR = lambda i: f"Task {i} doesn't exist. Sorry!"
