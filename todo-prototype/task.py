@@ -7,7 +7,7 @@ class Task:
     complete: bool = False
 
     def __str__(self) -> str:
-        c = "☑️" if self.complete else "⬜"
+        c = "✅" if self.complete else "⬜"
         return f"{c} {self.description}\n"
     
     def check(self) -> bool:
