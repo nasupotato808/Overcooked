@@ -1,0 +1,7 @@
+This project includes modifications to the T5 (Text-to-Text Transfer Transformer) model.
+Original T5 model is licensed under the Apache 2.0 License.
+Copyright 2020 Google Research.
+
+Modifications made:
+- Fine-tuned the model on a custom dataset for grammar correction.
+- Added a new preprocessing pipeline for text input.
