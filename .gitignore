@@ -10,3 +10,8 @@ todo-prototype/commands/__pycache__/__init__.cpython-311.pyc
 todo-prototype/commands/__pycache__/commands.cpython-311.pyc
 todo-prototype/commands/__pycache__/options.cpython-311.pyc
 todo-prototype/display/__pycache__/show_embed.cpython-311.pyc
+
+# Ignore Firebase service account key
+dailyreport/firebase/undercooked-f88b1-firebase-adminsdk-551hc-b58ed9a850.json
+# Ignore environment variables
+.env
